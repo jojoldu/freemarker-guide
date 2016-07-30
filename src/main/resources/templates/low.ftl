@@ -1,0 +1,1 @@
+<h2>Low content</h2>
