@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -59,5 +60,12 @@ public class Controller {
         return "index2";
     }
 
+    @RequestMapping(value = "/taglib")
+    public String taglib(Model model) throws Exception {
+        model.addAttribute("notNullValue", "Null이 아니에요");
+        model.addAttribute("nullValue", null);
+        model.addAttribute("taglib", new TagLibrary());
+        return "taglib";
+    }
 
 }
