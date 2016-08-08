@@ -21,18 +21,26 @@ import java.util.Map;
 @org.springframework.stereotype.Controller
 public class Controller {
 
-    @RequestMapping(value="/index/error")
-    public String highError(Model model) {
-        model.addAttribute("msg", getRandomData());
+    @RequestMapping(value="/")
+    public String index(Model model){
+        model.addAttribute("msg", "");
         return "index";
     }
 
-    private String getRandomData() {
-        if((int) (Math.random() * 10) > 4){
-            return "Good Result";
-        }
+    @RequestMapping(value="/high/error")
+    public String highError(Model model) {
+        model.addAttribute("msg", null);
+        return "index";
+    }
 
-        return null;
+    @RequestMapping(value="/high/solve")
+    public String highSolve(Model model) throws Exception {
+        Map<String, Object> highData = new LinkedHashMap<>();
+        highData.put("msg", null);
+
+        model.addAttribute("high", template("high", highData));
+        model.addAttribute("low", template("low", new LinkedHashMap<>()));
+        return "index2";
     }
 
     private String template(String templateName, Map<String, Object> data) {
@@ -47,18 +55,8 @@ public class Controller {
         }catch (Exception e){
             return "";
         }
-
     }
 
-    @RequestMapping(value="/index2/error")
-    public String highError2(Model model) throws Exception {
-        Map<String, Object> highData = new LinkedHashMap<>();
-        highData.put("msg", getRandomData());
-
-        model.addAttribute("high", template("high", highData));
-        model.addAttribute("low", template("low", new LinkedHashMap<>()));
-        return "index2";
-    }
 
     @RequestMapping(value = "/taglib")
     public String taglib(Model model) throws Exception {
